@@ -44,14 +44,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditorIO.cs" />
+    <Compile Include="FightArea.cs" />
+    <Compile Include="FightAreaController.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="MovesetData.cs" />
+    <Compile Include="MovesetDataController.cs" />
+    <Compile Include="NPC.cs" />
+    <Compile Include="NPCController.cs" />
+    <Compile Include="Pokemon.cs" />
+    <Compile Include="PokemonData.cs" />
+    <Compile Include="PokemonDataController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trainer.cs" />
+    <Compile Include="TrainerController.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
