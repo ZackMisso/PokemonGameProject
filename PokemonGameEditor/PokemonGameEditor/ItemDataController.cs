@@ -5,20 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PokemonGameEditor {
-   public class TrainerController {
-      private List<Trainer> trainers;
-
-      public TrainerController() {
-         trainers = new List<>();
-      }
+   public class ItemDataController {
+      private List<ItemData> items;
       
+      public ItemDataController() {
+         items = new List<>();
+      }
+
       public string writeData() {
          // implement
          return "";
-      }
-
-      public void reset() {
-         trainers.Clear();
       }
    }
 }

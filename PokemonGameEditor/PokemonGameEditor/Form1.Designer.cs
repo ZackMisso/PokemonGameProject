@@ -31,14 +31,14 @@
          this.AddTrainerButton = new System.Windows.Forms.Button();
          this.SaveLevelButton = new System.Windows.Forms.Button();
          this.panel2 = new System.Windows.Forms.Panel();
+         this.CancelButton = new System.Windows.Forms.Button();
+         this.AcceptButton = new System.Windows.Forms.Button();
          this.AddConnectionButton = new System.Windows.Forms.Button();
          this.AddAreaButton = new System.Windows.Forms.Button();
          this.ViewFightButton = new System.Windows.Forms.Button();
          this.ImportDataButton = new System.Windows.Forms.Button();
          this.label1 = new System.Windows.Forms.Label();
          this.AddNPCButton = new System.Windows.Forms.Button();
-         this.AcceptButton = new System.Windows.Forms.Button();
-         this.CancelButton = new System.Windows.Forms.Button();
          this.ViewTileMapButton = new System.Windows.Forms.Button();
          this.EditTileMapButton = new System.Windows.Forms.Button();
          this.panel2.SuspendLayout();
@@ -124,6 +124,26 @@
          this.panel2.TabIndex = 7;
          this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
          // 
+         // CancelButton
+         // 
+         this.CancelButton.Location = new System.Drawing.Point(344, 175);
+         this.CancelButton.Name = "CancelButton";
+         this.CancelButton.Size = new System.Drawing.Size(75, 23);
+         this.CancelButton.TabIndex = 15;
+         this.CancelButton.Text = "Cancel";
+         this.CancelButton.UseVisualStyleBackColor = true;
+         this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+         // 
+         // AcceptButton
+         // 
+         this.AcceptButton.Location = new System.Drawing.Point(99, 175);
+         this.AcceptButton.Name = "AcceptButton";
+         this.AcceptButton.Size = new System.Drawing.Size(75, 23);
+         this.AcceptButton.TabIndex = 14;
+         this.AcceptButton.Text = "Accept";
+         this.AcceptButton.UseVisualStyleBackColor = true;
+         this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
+         // 
          // AddConnectionButton
          // 
          this.AddConnectionButton.Location = new System.Drawing.Point(498, 186);
@@ -183,26 +203,6 @@
          this.AddNPCButton.Text = "Add NPC";
          this.AddNPCButton.UseVisualStyleBackColor = true;
          this.AddNPCButton.Click += new System.EventHandler(this.AddNPCButton_Click);
-         // 
-         // AcceptButton
-         // 
-         this.AcceptButton.Location = new System.Drawing.Point(99, 175);
-         this.AcceptButton.Name = "AcceptButton";
-         this.AcceptButton.Size = new System.Drawing.Size(75, 23);
-         this.AcceptButton.TabIndex = 14;
-         this.AcceptButton.Text = "Accept";
-         this.AcceptButton.UseVisualStyleBackColor = true;
-         this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
-         // 
-         // CancelButton
-         // 
-         this.CancelButton.Location = new System.Drawing.Point(344, 175);
-         this.CancelButton.Name = "CancelButton";
-         this.CancelButton.Size = new System.Drawing.Size(75, 23);
-         this.CancelButton.TabIndex = 15;
-         this.CancelButton.Text = "Cancel";
-         this.CancelButton.UseVisualStyleBackColor = true;
-         this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
          // 
          // ViewTileMapButton
          // 

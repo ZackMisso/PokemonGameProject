@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PokemonGameEditor {
-   public class TrainerController {
-      private List<Trainer> trainers;
+   public class ConnectionController {
+      private List<Connection> connections;
 
-      public TrainerController() {
-         trainers = new List<>();
-      }
-      
-      public string writeData() {
-         // implement
-         return "";
+      public ConnectionController() {
+         connections = new List<>();
       }
 
       public void reset() {
-         trainers.Clear();
+         connections.Clear();
+      }
+
+      public string writeData() {
+         // implement
+         return "";
       }
    }
 }

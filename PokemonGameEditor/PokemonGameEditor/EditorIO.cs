@@ -15,7 +15,7 @@ namespace PokemonGameEditor {
          reference=param;
       }
 
-      public void writeLevel() {
+      public void writeLevel(string fileName) {
          // implement
       }
 
