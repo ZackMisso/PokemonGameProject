@@ -5,19 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PokemonGameEditor {
-   public class NPCController {
-      private List<NPC> npcs;
+   public class GameViewController {
+      private int currentX;
+      private int currentY;
 
-      public NPCController() {
-         npcs = new List<NPC>();
-      }
-
-      public string writeData() {
+      public GameViewController() {
          // implement
-         return "";
       }
 
-      public void reset() {
+      public void draw() {
          // implement
       }
    }

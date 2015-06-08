@@ -10,8 +10,8 @@ namespace PokemonGameEditor {
       private List<List<int>> map;
 
       public TerrainMap() {
-         terrainMappints = new List<>();
-         map = new List<>();
+         terrainMappings = new List<ImageToInt>();
+         map = new List<List<int>>();
       }
 
       public void reset() {

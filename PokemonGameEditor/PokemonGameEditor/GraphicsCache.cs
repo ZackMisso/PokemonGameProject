@@ -10,7 +10,7 @@ namespace PokemonGameEditor {
       private List<ImageToString> images;
 
       public GraphicsCache() {
-         images = new List<>();
+         images = new List<ImageToString>();
       }
 
       public void sortByName() {

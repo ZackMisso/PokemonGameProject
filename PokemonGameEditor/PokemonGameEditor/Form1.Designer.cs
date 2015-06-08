@@ -33,6 +33,8 @@
          this.panel2 = new System.Windows.Forms.Panel();
          this.CancelButton = new System.Windows.Forms.Button();
          this.AcceptButton = new System.Windows.Forms.Button();
+         this.scrollRightButton = new System.Windows.Forms.Button();
+         this.scrollLeftButton = new System.Windows.Forms.Button();
          this.AddConnectionButton = new System.Windows.Forms.Button();
          this.AddAreaButton = new System.Windows.Forms.Button();
          this.ViewFightButton = new System.Windows.Forms.Button();
@@ -41,13 +43,25 @@
          this.AddNPCButton = new System.Windows.Forms.Button();
          this.ViewTileMapButton = new System.Windows.Forms.Button();
          this.EditTileMapButton = new System.Windows.Forms.Button();
+         this.ScriptArea = new System.Windows.Forms.RichTextBox();
+         this.NewScriptButton = new System.Windows.Forms.Button();
+         this.SaveScriptButton = new System.Windows.Forms.Button();
+         this.DeleteButton = new System.Windows.Forms.Button();
+         this.ViewScriptsButton = new System.Windows.Forms.Button();
+         this.panel3 = new System.Windows.Forms.Panel();
+         this.TestButton = new System.Windows.Forms.Button();
+         this.pictureBox1 = new System.Windows.Forms.PictureBox();
+         this.panel1.SuspendLayout();
          this.panel2.SuspendLayout();
+         this.panel3.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
          this.SuspendLayout();
          // 
          // panel1
          // 
          this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.panel1.Location = new System.Drawing.Point(12, 12);
+         this.panel1.Controls.Add(this.pictureBox1);
+         this.panel1.Location = new System.Drawing.Point(12, 9);
          this.panel1.Name = "panel1";
          this.panel1.Size = new System.Drawing.Size(480, 320);
          this.panel1.TabIndex = 0;
@@ -126,7 +140,7 @@
          // 
          // CancelButton
          // 
-         this.CancelButton.Location = new System.Drawing.Point(344, 175);
+         this.CancelButton.Location = new System.Drawing.Point(319, 175);
          this.CancelButton.Name = "CancelButton";
          this.CancelButton.Size = new System.Drawing.Size(75, 23);
          this.CancelButton.TabIndex = 15;
@@ -136,13 +150,33 @@
          // 
          // AcceptButton
          // 
-         this.AcceptButton.Location = new System.Drawing.Point(99, 175);
+         this.AcceptButton.Location = new System.Drawing.Point(84, 175);
          this.AcceptButton.Name = "AcceptButton";
          this.AcceptButton.Size = new System.Drawing.Size(75, 23);
          this.AcceptButton.TabIndex = 14;
          this.AcceptButton.Text = "Accept";
          this.AcceptButton.UseVisualStyleBackColor = true;
          this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
+         // 
+         // scrollRightButton
+         // 
+         this.scrollRightButton.Location = new System.Drawing.Point(359, 188);
+         this.scrollRightButton.Name = "scrollRightButton";
+         this.scrollRightButton.Size = new System.Drawing.Size(75, 23);
+         this.scrollRightButton.TabIndex = 19;
+         this.scrollRightButton.Text = ">>";
+         this.scrollRightButton.UseVisualStyleBackColor = true;
+         this.scrollRightButton.Click += new System.EventHandler(this.scrollRightButton_Click);
+         // 
+         // scrollLeftButton
+         // 
+         this.scrollLeftButton.Location = new System.Drawing.Point(3, 188);
+         this.scrollLeftButton.Name = "scrollLeftButton";
+         this.scrollLeftButton.Size = new System.Drawing.Size(75, 23);
+         this.scrollLeftButton.TabIndex = 16;
+         this.scrollLeftButton.Text = "<<";
+         this.scrollLeftButton.UseVisualStyleBackColor = true;
+         this.scrollLeftButton.Click += new System.EventHandler(this.scrollLeftButton_Click);
          // 
          // AddConnectionButton
          // 
@@ -187,7 +221,7 @@
          // label1
          // 
          this.label1.AutoSize = true;
-         this.label1.Location = new System.Drawing.Point(508, 528);
+         this.label1.Location = new System.Drawing.Point(513, 528);
          this.label1.Name = "label1";
          this.label1.Size = new System.Drawing.Size(70, 13);
          this.label1.TabIndex = 12;
@@ -224,11 +258,99 @@
          this.EditTileMapButton.UseVisualStyleBackColor = true;
          this.EditTileMapButton.Click += new System.EventHandler(this.EditTileMapButton_Click);
          // 
+         // ScriptArea
+         // 
+         this.ScriptArea.BackColor = System.Drawing.SystemColors.MenuText;
+         this.ScriptArea.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.ScriptArea.ForeColor = System.Drawing.Color.LawnGreen;
+         this.ScriptArea.Location = new System.Drawing.Point(615, 12);
+         this.ScriptArea.Name = "ScriptArea";
+         this.ScriptArea.Size = new System.Drawing.Size(439, 317);
+         this.ScriptArea.TabIndex = 16;
+         this.ScriptArea.Text = "Scripted events will be programmed here";
+         // 
+         // NewScriptButton
+         // 
+         this.NewScriptButton.Location = new System.Drawing.Point(498, 393);
+         this.NewScriptButton.Name = "NewScriptButton";
+         this.NewScriptButton.Size = new System.Drawing.Size(97, 23);
+         this.NewScriptButton.TabIndex = 17;
+         this.NewScriptButton.Text = "New Script";
+         this.NewScriptButton.UseVisualStyleBackColor = true;
+         this.NewScriptButton.Click += new System.EventHandler(this.NewScriptButton_Click);
+         // 
+         // SaveScriptButton
+         // 
+         this.SaveScriptButton.Location = new System.Drawing.Point(498, 422);
+         this.SaveScriptButton.Name = "SaveScriptButton";
+         this.SaveScriptButton.Size = new System.Drawing.Size(97, 23);
+         this.SaveScriptButton.TabIndex = 18;
+         this.SaveScriptButton.Text = "Save Script";
+         this.SaveScriptButton.UseVisualStyleBackColor = true;
+         this.SaveScriptButton.Click += new System.EventHandler(this.SaveScriptButton_Click);
+         // 
+         // DeleteButton
+         // 
+         this.DeleteButton.Location = new System.Drawing.Point(498, 451);
+         this.DeleteButton.Name = "DeleteButton";
+         this.DeleteButton.Size = new System.Drawing.Size(97, 23);
+         this.DeleteButton.TabIndex = 16;
+         this.DeleteButton.Text = "Delete";
+         this.DeleteButton.UseVisualStyleBackColor = true;
+         this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+         // 
+         // ViewScriptsButton
+         // 
+         this.ViewScriptsButton.Location = new System.Drawing.Point(498, 480);
+         this.ViewScriptsButton.Name = "ViewScriptsButton";
+         this.ViewScriptsButton.Size = new System.Drawing.Size(97, 23);
+         this.ViewScriptsButton.TabIndex = 19;
+         this.ViewScriptsButton.Text = "View Scripts";
+         this.ViewScriptsButton.UseVisualStyleBackColor = true;
+         this.ViewScriptsButton.Click += new System.EventHandler(this.ViewScriptsButton_Click);
+         // 
+         // panel3
+         // 
+         this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.panel3.Controls.Add(this.scrollLeftButton);
+         this.panel3.Controls.Add(this.scrollRightButton);
+         this.panel3.Location = new System.Drawing.Point(615, 329);
+         this.panel3.Name = "panel3";
+         this.panel3.Size = new System.Drawing.Size(439, 219);
+         this.panel3.TabIndex = 20;
+         this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint_1);
+         // 
+         // TestButton
+         // 
+         this.TestButton.Location = new System.Drawing.Point(498, 509);
+         this.TestButton.Name = "TestButton";
+         this.TestButton.Size = new System.Drawing.Size(97, 23);
+         this.TestButton.TabIndex = 21;
+         this.TestButton.Text = "TestButton";
+         this.TestButton.UseVisualStyleBackColor = true;
+         this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
+         // 
+         // pictureBox1
+         // 
+         this.pictureBox1.Location = new System.Drawing.Point(299, 185);
+         this.pictureBox1.Name = "pictureBox1";
+         this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+         this.pictureBox1.TabIndex = 0;
+         this.pictureBox1.TabStop = false;
+         // 
          // Form1
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(601, 550);
+         this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+         this.ClientSize = new System.Drawing.Size(1066, 550);
+         this.Controls.Add(this.TestButton);
+         this.Controls.Add(this.panel3);
+         this.Controls.Add(this.ViewScriptsButton);
+         this.Controls.Add(this.DeleteButton);
+         this.Controls.Add(this.SaveScriptButton);
+         this.Controls.Add(this.NewScriptButton);
+         this.Controls.Add(this.ScriptArea);
          this.Controls.Add(this.EditTileMapButton);
          this.Controls.Add(this.ViewTileMapButton);
          this.Controls.Add(this.AddNPCButton);
@@ -248,7 +370,10 @@
          this.Name = "Form1";
          this.Text = "Form1";
          this.Load += new System.EventHandler(this.Form1_Load);
+         this.panel1.ResumeLayout(false);
          this.panel2.ResumeLayout(false);
+         this.panel3.ResumeLayout(false);
+         ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -274,6 +399,21 @@
       private System.Windows.Forms.Button AcceptButton;
       private System.Windows.Forms.Button ViewTileMapButton;
       private System.Windows.Forms.Button EditTileMapButton;
+      private System.Windows.Forms.RichTextBox ScriptArea;
+      private System.Windows.Forms.Button NewScriptButton;
+      private System.Windows.Forms.Button SaveScriptButton;
+      private System.Windows.Forms.Button DeleteButton;
+      private System.Windows.Forms.Button scrollRightButton;
+      private System.Windows.Forms.Button scrollLeftButton;
+      private System.Windows.Forms.Button ViewScriptsButton;
+      private System.Windows.Forms.Panel panel3;
+      private System.Windows.Forms.Button TestButton;
+
+      public System.Windows.Forms.Panel getPanel1() { return panel1; }
+      public System.Windows.Forms.Panel getPanel2() { return panel2; }
+      public System.Windows.Forms.Panel getPanel3() { return panel3; }
+
+      private System.Windows.Forms.PictureBox pictureBox1;
    }
 }
 

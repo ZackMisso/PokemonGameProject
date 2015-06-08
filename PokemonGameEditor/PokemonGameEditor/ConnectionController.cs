@@ -9,7 +9,7 @@ namespace PokemonGameEditor {
       private List<Connection> connections;
 
       public ConnectionController() {
-         connections = new List<>();
+         connections = new List<Connection>();
       }
 
       public void reset() {

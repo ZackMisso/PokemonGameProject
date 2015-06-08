@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokemonGameEditor : Displayable{
-   public class NPC {
+namespace PokemonGameEditor{
+   public class NPC : Displayable {
       //private Image image;
       private string text;
       //private int tileX;
       //private int tileY;
 
-      public NPC() {
-         base();
+      public NPC() : base() {
+         
          text = "";
          //tileX = 0;
          //tileY = 0;

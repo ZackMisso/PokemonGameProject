@@ -9,7 +9,7 @@ namespace PokemonGameEditor {
       private List<Trainer> trainers;
 
       public TrainerController() {
-         trainers = new List<>();
+         trainers = new List<Trainer>();
       }
       
       public string writeData() {

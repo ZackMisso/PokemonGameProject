@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PokemonGameEditor {
-   public class NPCController {
-      private List<NPC> npcs;
+   public class FightAreaController {
+      private List<FightArea> fightareas;
 
-      public NPCController() {
-         npcs = new List<NPC>();
+      public FightAreaController() {
+         fightareas = new List<FightArea>();
       }
 
       public string writeData() {

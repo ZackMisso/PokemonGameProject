@@ -9,7 +9,7 @@ namespace PokemonGameEditor {
       private List<List<int>> tileMap;
 
       public TileMapController() {
-         tileMap = new List<>();
+         tileMap = new List<List<int>>();
       }
 
       public string writeDate() {
@@ -17,9 +17,13 @@ namespace PokemonGameEditor {
          return "";
       }
 
+      public void reset() {
+         // to be implemented
+      }
+
       private int[][] convertToSimpleArray() {
          // implement
-         return new int[1][1]();
+         return null;
       }
    }
 }

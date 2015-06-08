@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 
 namespace PokemonGameEditor {
-   public class ImageToStringcs {
+   public class ImageToString {
       private Image image;
       private string name;
 

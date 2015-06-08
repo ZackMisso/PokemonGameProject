@@ -9,7 +9,7 @@ namespace PokemonGameEditor {
       private List<PokemonData> pokemons;
 
       public PokemonDataController() {
-         pokemons=new List<>();
+         pokemons=new List<PokemonData>();
       }
 
       public string writeData() {

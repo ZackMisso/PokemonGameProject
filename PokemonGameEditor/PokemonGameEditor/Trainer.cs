@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokemonGameEditor : Displayable {
-   public class Trainer {
+namespace PokemonGameEditor{
+   public class Trainer : Displayable{
       private Pokemon[] pokemon;
       //private int tileX;
       //private int tileY;
       //private int direction;
 
-      public Trainer() {
-         base();
+      public Trainer() : base(){
          pokemon = new Pokemon[6];
       }
 

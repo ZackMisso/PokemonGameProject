@@ -9,7 +9,7 @@ namespace PokemonGameEditor {
       private List<MovesetData> moves;
 
       public MovesetDataController() {
-         moves = new List<>();
+         moves = new List<MovesetData>();
       }
 
       public string writeData() {

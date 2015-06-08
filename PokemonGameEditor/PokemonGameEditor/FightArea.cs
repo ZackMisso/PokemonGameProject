@@ -10,8 +10,8 @@ namespace PokemonGameEditor {
       private List<List<int>> areaMap;
 
       public FightArea() {
-         pokemonInArea = new List<>();
-         areaMap = new List<();
+         pokemonInArea = new List<PokemonData>();
+         areaMap = new List<List<int>>();
       }
 
       public void addMapLocation(int r, int c) {

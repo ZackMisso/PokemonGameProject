@@ -10,20 +10,20 @@ namespace PokemonGameEditor {
       private Image image;
       private int tileX;
       private int tileY;
-      private enum Direction = {North, South, East, West};
+      private enum Direction {North, South, East, West};
       private int direction;
 
       public Displayable(){
          tileX = 0;
          tileY = 0;
-         direction = Direction.South;
+         direction = (int)Direction.South;
       }
 
       // getter methods
       public Image getImage(){return image;}
       public int getTileX(){return tileX;}
       public int getTileY(){return tileY;}
-      public int getDirection(){return Direction;}
+      public int getDirection(){return direction;}
 
       // setter methods
       public void setImage(Image param){image=param;}

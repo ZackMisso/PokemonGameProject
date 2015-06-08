@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,7 +23,8 @@ namespace PokemonGameEditor {
       private ConnectionController connections;
       private TemporaryUIController tempUI;
       private ItemDataController itemController;
-      private enum State { None, AddNPC, AddTrainer, AddBuilding, Save, AddTerrain, AddConnection, AddFightArea, EditingTileMap, EditFightArea};
+      private UrlController urlController;
+      private enum State { None, AddNPC, AddTrainer, AddBuilding, Save, AddTerrain, AddConnection, AddFightArea, EditingTileMap, EditFightArea, Test};
       private int currentState;
       private bool viewingTileMap;
       //private bool viewingFightArea;
@@ -30,7 +32,7 @@ namespace PokemonGameEditor {
 
       public Form1() {
          InitializeComponent();
-         io = new EditorIO();
+         io = new EditorIO(this);
          movesController = new MovesetDataController();
          pokemonController = new PokemonDataController();
          trainerController = new TrainerController();
@@ -40,11 +42,12 @@ namespace PokemonGameEditor {
          tileMap = new TileMapController();
          terrainMap = new TerrainMap();
          connections = new ConnectionController();
-         tempUI = new TemporaryUIController();
+         tempUI = new TemporaryUIController(this);
          itemController = new ItemDataController();
-         currentState = State.None;
-         viewindTileMap = false;
-         viewingFightArea = false;
+         urlController = new UrlController();
+         currentState = (int)State.None;
+         viewingTileMap = false;
+         //viewingFightArea = false;
       }
 
       private void reset(){
@@ -54,48 +57,51 @@ namespace PokemonGameEditor {
          tileMap.reset();
          terrainMap.reset();
          connections.reset();
-         changeState(State.None);
+         changeState((int)State.None,false);
          viewingTileMap = false;
-         viewingFightArea = false;
+         // viewingFightArea = false;
          // implement the rest
       }
 
       //private enum State { None, AddNPC, AddTrainer, AddBuilding, Save, AddTerrain, AddConnection, AddFightArea, EditingTileMap, EditFightArea };
       
       public void changeState(int newState,bool accept){
-         if (currentStatus == newState)
+         if (currentState == newState)
             return;
          //tempUI.reset();
-         if (currentState != State.None) {
+         if (currentState != (int)State.None) {
             switch (currentState) {
-               case State.None:
+               case (int)State.None:
                   break;
-               case State.AddNPC:
+               case (int)State.AddNPC:
                   switchFromAddNPC(accept);
                   break;
-               case State.AddTrainer:
+               case (int)State.AddTrainer:
                   switchFromAddTrainer(accept);
                   break;
-               case State.AddBuilding:
+               case (int)State.AddBuilding:
                   switchFromAddBuilding(accept);
                   break;
                //case State.Save:
                //   switchFromSave(accept);
                //   break;
-               case State.AddTerrain:
+               case (int)State.AddTerrain:
                   switchFromAddTerrain(accept);
                   break;
-               case State.AddConnection:
+               case (int)State.AddConnection:
                   switchFromAddConnection(accept);
                   break;
-               case State.AddFightArea:
+               case (int)State.AddFightArea:
                   switchFromAddFightArea(accept);
                   break;
-               case State.EditingTileMap:
+               case (int)State.EditingTileMap:
                   switchFromEditingTileMap(accept);
                   break;
-               case State.EditFightArea:
+               case (int)State.EditFightArea:
                   switchFromEditFightArea(accept);
+                  break;
+               case (int)State.Test:
+                  switchFromTest(accept);
                   break;
                default:
                   break;
@@ -103,36 +109,43 @@ namespace PokemonGameEditor {
          }
          tempUI.reset();
          switch (newState) {
-            case State.None:
+            case (int)State.None:
                break;
-            case State.AddNPC:
+            case (int)State.AddNPC:
                switchToAddNPC();
                break;
-            case State.AddTrainer:
+            case (int)State.AddTrainer:
                switchToAddTrainer();
                break;
-            case State.AddBuilding:
+            case (int)State.AddBuilding:
                switchToAddBuilding();
                break;
             //case State.Save:
             //   switchToSave();
             //   break;
-            case State.AddTerrain:
+            case (int)State.AddTerrain:
                switchToAddTerrain();
                break;
-            case State.AddConnection:
+            case (int)State.AddConnection:
                switchToAddConnection();
                break;
-            case State.AddFightArea:
+            case (int)State.AddFightArea:
                switchToAddFightArea();
                break;
-            case State.EditingTileMap:
+            case (int)State.EditingTileMap:
                switchToEditingTileMap();
                break;
-            case State.EditFightArea:
+            case (int)State.EditFightArea:
                switchToEditFightArea();
                break;
+            case (int)State.Test:
+               switchToTest();
+               break;
             default:
+               int temp = 0;
+               int num = (int)currentState;
+               int num2 = (int)newState;
+               int tempe = 0;
                throw new System.InvalidOperationException("No Such State.\n");
                break;
          }
@@ -181,13 +194,40 @@ namespace PokemonGameEditor {
       }
       
       private void switchToAddTerrain() {
-         // implement
+         List<PictureBox> boxes = new List<PictureBox>();
+         if (String.IsNullOrWhiteSpace(urlController.getUrlToTerrain())) {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK) {
+               urlController.setUrlToBuildings(dialog.SelectedPath);
+            } else {
+               changeState((int)State.None, false);
+            }
+         }
+         string[] files = Directory.GetFiles(urlController.getUrlToTerrain());
+         foreach (string file in files){
+            if (file.EndsWith(".png")) {
+               string name="";
+               for (int i = file.Length - 5; i > 0; i--){
+                  if(file[i] == '/'){
+                     name = file.Substring(i + 1, i + 5 - file.Length);
+                  }
+               }
+               boxes.Add(new PictureBox {
+                  Name = name,
+                  Size = new Size(96,96)
+               });
+            boxes[boxes.Count-1].ImageLocation = file;
+            }
+         }
+         //for(int i = 0; i < boxes.Count; i++){
+         //   // set location
+         tempUI.organizeTerrainPictureBoxs(boxes);
+         //}
       }
 
       private void switchFromAddTerrain(bool accept) {
-         if (accept) {
-            // implement
-         }
+         // will do nothing
       }
 
       //private void switchFromSave(bool accept) {
@@ -232,6 +272,49 @@ namespace PokemonGameEditor {
          // implement
       }
 
+      private void switchFromTest(bool accept) {
+         // implement
+      }
+
+      private void switchToTest() {
+         List<PictureBox> boxes = new List<PictureBox>();
+         if (String.IsNullOrWhiteSpace(urlController.getUrlToBuildings())) {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK) {
+               urlController.setUrlToBuildings(dialog.SelectedPath);
+            } else {
+               changeState((int)State.None, false);
+            }
+         }
+         string[] files = Directory.GetFiles(urlController.getUrlToBuildings());
+         foreach (string file in files){
+            if (file.EndsWith(".png")) {
+               string name="";
+               for (int i = file.Length - 5; i > 0; i--){
+                  if(file[i] == '\\'){
+                     //Console.WriteLine(file);
+                     name = file.Substring(i + 1, (file.Length - 4) - (i + 1));
+                     Console.WriteLine(name);
+                     i = 0;
+                  }
+               }
+               boxes.Add(new PictureBox {
+                  Name = name,
+                  Size = new Size(96,96)
+               });
+               boxes[boxes.Count-1].Image = Image.FromFile(file);
+            }
+         }
+         //for(int i = 0; i < boxes.Count; i++){
+         //   // set location
+         //boxes[0].Location = new Point(10, 10);
+         //boxes[0].Visible = true;
+         //this.Controls.Add(boxes[0]);
+         tempUI.organizePokemonPictureBoxs(boxes);
+         //}
+      }
+
       private void panel1_Paint(object sender, PaintEventArgs e) {
          // implement
       }
@@ -239,29 +322,58 @@ namespace PokemonGameEditor {
       // Open For testing
       private void button1_Click(object sender, EventArgs e) { // Open Level
          OpenFileDialog openLevelBox = new OpenFileDialog();
-         openFileBox.Filter = "Level Files|*.lvl"; // maybe change to text files in the future
-         openFileBox.FilterIndex = 1;
-         openFileBox.Multiselect = false;
-         DialogResult userClickedOk = openFileBox.ShowDialog();
+         openLevelBox.Filter = "Level Files|*.lvl"; // maybe change to text files in the future
+         openLevelBox.FilterIndex = 1;
+         openLevelBox.Multiselect = false;
+         DialogResult userClickedOk = openLevelBox.ShowDialog();
          if (userClickedOk == DialogResult.OK) {
             reset();
-            io.readLevel(new FileInfo(openFileBox.FileName));
+            io.readLevel(new FileInfo(openLevelBox.FileName));
          }
       }
 
       private void button2_Click(object sender, EventArgs e) {
-         // impleemnt
+         List<PictureBox> boxes = new List<PictureBox>();
+         if (String.IsNullOrWhiteSpace(urlController.getUrlToBuildings())) {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK) {
+               urlController.setUrlToBuildings(dialog.SelectedPath);
+            } else {
+               changeState((int)State.None, false);
+            }
+         }
+         string[] files = Directory.GetFiles(urlController.getUrlToBuildings());
+         foreach (string file in files){
+            if (file.EndsWith(".png")) {
+               string name="";
+               for (int i = file.Length - 5; i > 0; i--){
+                  if(file[i] == '/'){
+                     name = file.Substring(i + 1, i + 5 - file.Length);
+                  }
+               }
+               boxes.Add(new PictureBox {
+                  Name = name,
+                  Size = new Size(96,96)
+               });
+            boxes[boxes.Count-1].ImageLocation = file;
+            }
+         }
+         //for(int i = 0; i < boxes.Count; i++){
+         //   // set location
+         tempUI.organizePokemonPictureBoxs(boxes);
+         //}
       }
 
       private void SaveLevelButton_Click(object sender, EventArgs e) {
          //changeState(State.Save, false);
          SaveFileDialog saveFile = new SaveFileDialog();
-         if (saveFile.showDialog() == DialogResult.OK)
-            io.writeLevel(saveFile.fileName);
+         if (saveFile.ShowDialog() == DialogResult.OK)
+            io.writeLevel(saveFile.FileName);
       }
 
       private void AddTrainerButton_Click(object sender, EventArgs e) {
-         changeState(State.AddTrainer, false);
+         changeState((int)State.AddTrainer, false);
       }
 
       private void NewLevelButton_Click(object sender, EventArgs e) {
@@ -270,15 +382,15 @@ namespace PokemonGameEditor {
       }
 
       private void AddTerrainButton_Click(object sender, EventArgs e) {
-         changeState(State.AddTerrain, false);
+         changeState((int)State.AddTerrain, false);
       }
 
       private void AddConnectionButton_Click(object sender, EventArgs e) {
-         changeState(State.AddConnection, false);
+         changeState((int)State.AddConnection, false);
       }
 
       private void AddAreaButton_Click(object sender, EventArgs e) {
-         changeState(State.AddFightArea, false);
+         changeState((int)State.AddFightArea, false);
       }
 
       private void ViewFightButton_Click(object sender, EventArgs e) {
@@ -290,7 +402,7 @@ namespace PokemonGameEditor {
       }
 
       private void AddNPCButton_Click(object sender, EventArgs e) {
-         changeState(State.AddNPC, false);
+         changeState((int)State.AddNPC, false);
       }
 
       private void ImportDataButton_Click(object sender, EventArgs e) {
@@ -310,7 +422,7 @@ namespace PokemonGameEditor {
       }
 
       private void EditTileMapButton_Click(object sender, EventArgs e) {
-         changeStatus(State.EditTileMap, false);
+         changeState((int)State.EditingTileMap, false);
       }
 
       private void ViewTileMapButton_Click(object sender, EventArgs e) {
@@ -318,15 +430,47 @@ namespace PokemonGameEditor {
       }
 
       private void AcceptButton_Click(object sender, EventArgs e) {
-         changeStatus(State.None, true);
+         changeState((int)State.None, true);
       }
 
       private void CancelButton_Click(object sender, EventArgs e) {
-         changeStatus(State.None, false);
+         changeState((int)State.None, false);
       }
 
       private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
          // delete
+      }
+
+      private void NewScriptButton_Click(object sender, EventArgs e) {
+         // to be implemented
+      }
+
+      private void SaveScriptButton_Click(object sender, EventArgs e) {
+         // to be implemented
+      }
+
+      private void DeleteButton_Click(object sender, EventArgs e) {
+         // to be implemented
+      }
+
+      private void scrollLeftButton_Click(object sender, EventArgs e) {
+         // to be implemented
+      }
+
+      private void scrollRightButton_Click(object sender, EventArgs e) {
+         // to be implemented
+      }
+
+      private void ViewScriptsButton_Click(object sender, EventArgs e) {
+         // to be implemented
+      }
+
+      private void panel3_Paint_1(object sender, PaintEventArgs e) {
+         // to be implemented
+      }
+
+      private void TestButton_Click(object sender, EventArgs e) {
+         changeState((int)State.Test, false);
       }
    }
 }
